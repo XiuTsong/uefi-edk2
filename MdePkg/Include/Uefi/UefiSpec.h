@@ -1153,6 +1153,19 @@ VOID
   IN UINT8    Value
   );
 
+
+/**
+  The SampleRuntimeService() function get the key value.
+
+  @param[out]  Key            The key to return.
+
+**/
+typedef
+EFI_STATUS
+(EFIAPI *EFI_SAMPLE_RUNTIME_SERVICE)(
+  OUT UINT32 *Key
+  );
+
 ///
 /// Enumeration of EFI Interface Types
 ///
@@ -1868,6 +1881,9 @@ typedef struct {
   // Miscellaneous UEFI 2.0 Service
   //
   EFI_QUERY_VARIABLE_INFO           QueryVariableInfo;
+
+  // Sample Runtime Service
+  EFI_SAMPLE_RUNTIME_SERVICE        SampleRuntimeService;
 } EFI_RUNTIME_SERVICES;
 
 #define EFI_BOOT_SERVICES_SIGNATURE  SIGNATURE_64 ('B','O','O','T','S','E','R','V')

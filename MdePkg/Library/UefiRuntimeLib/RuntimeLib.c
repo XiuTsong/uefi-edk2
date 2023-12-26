@@ -817,3 +817,14 @@ EfiQueryVariableInfo (
                         MaximumVariableSize
                         );
 }
+
+EFI_STATUS
+EFIAPI
+EfiSampleRuntimeService (
+  OUT UINT32               *key
+)
+{
+  return mInternalRT->SampleRuntimeService(
+                        key
+                        );
+}

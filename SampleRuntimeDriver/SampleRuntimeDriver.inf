@@ -1,0 +1,25 @@
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SampleRuntimeDriver
+  FILE_GUID                      = 687C8AFC-EFEF-CC17-C7D7-4E6143593601
+  MODULE_TYPE                    = DXE_RUNTIME_DRIVER
+  VERSION_STRING                 = 1.0
+
+  ENTRY_POINT                    = SampleRuntimeDriverEntryPoint
+
+[Sources]
+  SampleRuntimeDriver.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiRuntimeLib
+
+[Depex]
+  TRUE
