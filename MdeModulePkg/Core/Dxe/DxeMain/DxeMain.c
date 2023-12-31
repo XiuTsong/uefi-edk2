@@ -164,7 +164,7 @@ EFI_RUNTIME_SERVICES  mEfiRuntimeServicesTableTemplate = {
   (EFI_UPDATE_CAPSULE)CoreEfiNotAvailableYetArg3,                 // UpdateCapsule
   (EFI_QUERY_CAPSULE_CAPABILITIES)CoreEfiNotAvailableYetArg4,     // QueryCapsuleCapabilities
   (EFI_QUERY_VARIABLE_INFO)CoreEfiNotAvailableYetArg4,             // QueryVariableInfo
-  (EFI_SAMPLE_RUNTIME_SERVICE)CoreEfiNotAvailableYetArg1           // SampleRuntimeService
+  (EFI_SAMPLE_RUNTIME_SERVICE)CoreEfiNotAvailableYetArg3           // SampleRuntimeService
 };
 
 EFI_RUNTIME_ARCH_PROTOCOL  gRuntimeTemplate = {

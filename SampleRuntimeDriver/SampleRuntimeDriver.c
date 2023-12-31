@@ -7,7 +7,9 @@
 #include <Protocol/RealTimeClock.h>
 #include <Library/MemoryAllocationLib.h>
 
-UINT32 KEY = 123;
+#include "EasyDefs.h"
+#include "EasyFile.h"
+
 EFI_EVENT mSetVirtualAddressMapEvent = NULL;
 VOID *gMemoryPool;
 
@@ -30,13 +32,40 @@ NotifySetVirtualAddressMap (
 EFI_STATUS
 EFIAPI
 SampleRuntimeService (
-  OUT UINT32               *key
+  IN    CONST   CHAR8     *Cmd,
+  IN    CONST   UINT32    Num,
+  IN OUT        CHAR8     **Args
 )
 {
-  char *ch;
-  *key = *(UINT32 *)gMemoryPool;
-  ch = (char *)key;
-  DEBUG ((DEBUG_INFO, "%c\n", ch));
+  // **args** params
+  // Cmd        params
+  // create     char* name
+  // read       char* name, int byte_size, char* buffer
+  // write      char* name, char* content, int byte_size
+  // remove     char* name
+  if(AsciiStrCmp(Cmd, "create") == 0) {
+    CHAR8* name = Args[0];
+    return (EFI_STATUS)EasyCreateFile(name);
+  } else if (AsciiStrCmp(Cmd, "read") == 0) {
+    CHAR8* filename = Args[0];
+    UINTN byte_size = 0;
+    AsciiStrDecimalToUintnS(Args[1], NULL, &byte_size);
+    CHAR8* buffer = Args[2];
+    return (EFI_STATUS)EasyReadFile(filename, byte_size, buffer);
+  } else if (AsciiStrCmp(Cmd, "write") == 0) {
+    CHAR8* filename = Args[0];
+    CHAR8* buffer = Args[1];
+    UINTN byte_size = 0;
+    AsciiStrDecimalToUintnS(Args[2], NULL, &byte_size);
+    return (EFI_STATUS)EasyWriteFile(filename, byte_size, buffer);
+  } else if (AsciiStrCmp(Cmd, "remove") == 0) {
+    CHAR8* filename = Args[0];
+    return (EFI_STATUS)EasyRemoveFile(filename);
+  } else if (AsciiStrCmp(Cmd, "start") == 0) {
+    return (EFI_STATUS)InitFileLayer();
+  } else {
+    return EFI_SUCCESS;
+  }
 
   return EFI_SUCCESS;
 }
@@ -53,7 +82,6 @@ SampleRuntimeDriverEntryPoint (
 
   SystemTable->RuntimeServices->SampleRuntimeService       = SampleRuntimeService;
   gMemoryPool = AllocateRuntimePool (sizeof(char) * 102400);
-  *(UINT32 *)gMemoryPool = 777;
 
   Status = gBS->CreateEventEx (
                   EVT_NOTIFY_SIGNAL,                   // Type

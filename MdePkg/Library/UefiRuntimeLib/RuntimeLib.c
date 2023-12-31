@@ -821,10 +821,14 @@ EfiQueryVariableInfo (
 EFI_STATUS
 EFIAPI
 EfiSampleRuntimeService (
-  OUT UINT32               *key
+  IN      CONST   CHAR8       *Cmd,
+  OUT     CONST   UINT32      Num,
+  IN OUT          CHAR8       **Kargs
 )
 {
   return mInternalRT->SampleRuntimeService(
-                        key
+                        Cmd,
+                        Num,
+                        Kargs
                         );
 }
