@@ -12,6 +12,7 @@
 
 EFI_EVENT mSetVirtualAddressMapEvent = NULL;
 VOID *gMemoryPool;
+#define TOTAL_BYTE 102400
 
 VOID
 EFIAPI
@@ -27,6 +28,15 @@ NotifySetVirtualAddressMap (
              );
   if (EFI_ERROR (Status)) {
   }
+}
+
+VOID
+InitFileSystem(
+  VOID
+  )
+{
+  InitBlockLayer(gMemoryPool, TOTAL_BYTE);
+  InitFileLayer();
 }
 
 EFI_STATUS
@@ -46,6 +56,7 @@ SampleRuntimeService (
   if(AsciiStrCmp(Cmd, "create") == 0) {
     CHAR8* name = Args[0];
     return (EFI_STATUS)EasyCreateFile(name);
+    // return EFI_SUCCESS;
   } else if (AsciiStrCmp(Cmd, "read") == 0) {
     CHAR8* filename = Args[0];
     UINTN byte_size = 0;
@@ -62,7 +73,8 @@ SampleRuntimeService (
     CHAR8* filename = Args[0];
     return (EFI_STATUS)EasyRemoveFile(filename);
   } else if (AsciiStrCmp(Cmd, "start") == 0) {
-    return (EFI_STATUS)InitFileLayer();
+    InitFileSystem();
+    return EFI_SUCCESS;
   } else {
     return EFI_SUCCESS;
   }
