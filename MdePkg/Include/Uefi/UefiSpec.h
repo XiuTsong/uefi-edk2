@@ -1157,13 +1157,17 @@ VOID
 /**
   The SampleRuntimeService() function get the key value.
 
-  @param[out]  Key            The key to return.
+  @param[in]        Cmd             Command string.
+  @param[in]        Num             Nums of params.
+  @param[in, out]   Args           Params may include read buffers.
 
 **/
 typedef
 EFI_STATUS
 (EFIAPI *EFI_SAMPLE_RUNTIME_SERVICE)(
-  OUT UINT32 *Key
+  IN    CONST     CHAR8    *Cmd,
+  OUT   CONST     UINT32   Num,
+  IN OUT          CHAR8    **Args
   );
 
 ///
