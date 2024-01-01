@@ -81,8 +81,13 @@ SampleRuntimeService (
     InitFileSystem();
     return EFI_SUCCESS;
   } else if (AsciiStrCmp(Cmd, "ls") == 0) {
-    CHAR8* buffer = Args[0];
-    return (EFI_STATUS)EasyLs(buffer);
+    if (Num == 0) {
+      CHAR8* buffer = Args[0];
+      return (EFI_STATUS)EasyLs(buffer);
+    }
+    CHAR8 *DirName = Args[0];
+    CHAR8 *buffer = Args[1];
+    return EasyDirListFiles(DirName, buffer);
   } else if (AsciiStrCmp(Cmd, "pwd") == 0) {
     CHAR8* buffer = Args[0];
     return (EFI_STATUS)EasyPwd(buffer);
