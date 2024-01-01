@@ -31,6 +31,11 @@ typedef struct {
     UINTN FileNum;
 } EASY_DIR; // sizeof(EASY_FILE_DIR) = 8Byte * 101 < 1024Byte(1 Block)
 
+EASY_DIR*
+EasyCreateDir(
+    VOID *DirName
+    );
+
 EASY_STATUS
 EasyCreateFile(
     VOID *FileName
@@ -64,6 +69,37 @@ EasyDirListFiles(
 EFI_STATUS
 InitFileLayer(
     VOID
+    );
+
+EFI_STATUS
+EasyPwd(
+    VOID *buf
+    );
+
+EASY_STATUS
+EasyCat(
+    VOID *FileName,
+    VOID *Buf
+    );
+
+EASY_STATUS
+EasyLs(
+    VOID *Buf
+    );
+
+EASY_STATUS
+EasyMkdir(
+    VOID *DirName
+    );
+
+EASY_STATUS
+EasyCd(
+    VOID *DirName
+    );
+
+EASY_STATUS
+EasyTouch(
+    VOID *FileName
     );
 
 #endif

@@ -17,5 +17,6 @@ typedef unsigned int EASY_STATUS;
 #define EASY_DIR_CREATE_ROOT_DIR_FAILED 100
 #define EASY_DIR_TOO_MANY_FILE_ERROR    101
 #define EASY_DIR_NOT_FOUND_ERROR        102
+#define EASY_DIR_CREATE_DIR_FAILED      103
 
 #endif
