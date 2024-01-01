@@ -96,6 +96,9 @@ SampleRuntimeService (
   } else if (AsciiStrCmp(Cmd, "touch") == 0) {
     CHAR8* filename = Args[0];
     return (EFI_STATUS)EasyTouch(filename);
+  } else if (AsciiStrCmp(Cmd, "cd") == 0) {
+    CHAR8* DirName = Args[0];
+    return (EFI_STATUS)EasyCd(DirName);
   } else {
     return EASY_CMD_NOT_FOUND_ERROR;
   }
