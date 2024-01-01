@@ -639,6 +639,10 @@ EasyCat(
         return -EASY_FILE_NOT_FOUND_ERROR;
     }
 
+    if (File->Type == EASY_TYPE_DIR) {
+        return EASY_SUCCESS;
+    }
+
     ReadBlock(File->BlockIds[0], File->FileSize, Buf);
 
     return EASY_SUCCESS;
