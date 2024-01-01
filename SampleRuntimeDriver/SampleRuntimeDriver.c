@@ -53,10 +53,15 @@ SampleRuntimeService (
   // read       char* name, int byte_size, char* buffer
   // write      char* name, char* content, int byte_size
   // remove     char* name
+  // start
+  // ls         char* buffer
+  // pwd        char* buffer
+  // mkdir      char* name
+  // cat        char* name, char* buffer
+  // touch      char* name
   if(AsciiStrCmp(Cmd, "create") == 0) {
     CHAR8* name = Args[0];
     return (EFI_STATUS)EasyCreateFile(name);
-    // return EFI_SUCCESS;
   } else if (AsciiStrCmp(Cmd, "read") == 0) {
     CHAR8* filename = Args[0];
     UINTN byte_size = 0;
@@ -75,11 +80,25 @@ SampleRuntimeService (
   } else if (AsciiStrCmp(Cmd, "start") == 0) {
     InitFileSystem();
     return EFI_SUCCESS;
+  } else if (AsciiStrCmp(Cmd, "ls") == 0) {
+    CHAR8* buffer = Args[0];
+    return (EFI_STATUS)EasyLs(buffer);
+  } else if (AsciiStrCmp(Cmd, "pwd") == 0) {
+    CHAR8* buffer = Args[0];
+    return (EFI_STATUS)EasyPwd(buffer);
+  } else if (AsciiStrCmp(Cmd, "mkdir") == 0) {
+    CHAR8* name = Args[0];
+    return (EFI_STATUS)EasyMkdir(name);
+  } else if (AsciiStrCmp(Cmd, "cat") == 0) {
+    CHAR8* filename = Args[0];
+    CHAR8* buffer = Args[1];
+    return (EFI_STATUS)EasyCat(filename, buffer);
+  } else if (AsciiStrCmp(Cmd, "touch") == 0) {
+    CHAR8* filename = Args[0];
+    return (EFI_STATUS)EasyTouch(filename);
   } else {
-    return EFI_SUCCESS;
+    return EASY_CMD_NOT_FOUND_ERROR;
   }
-
-  return EFI_SUCCESS;
 }
 
 EFI_STATUS

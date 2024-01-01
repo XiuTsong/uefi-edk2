@@ -19,4 +19,7 @@ typedef unsigned int EASY_STATUS;
 #define EASY_DIR_NOT_FOUND_ERROR        102
 #define EASY_DIR_CREATE_DIR_FAILED      103
 
+#define EASY_CMD_NOT_SUPPORT            1000;
+#define EASY_CMD_NOT_FOUND_ERROR        1001;
+
 #endif
